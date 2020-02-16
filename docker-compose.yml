@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+   frontend:
+     image: servicedesk-frontend
+     depends_on:
+       - backend
+     restart: always
+     networks:
+       - servicedesk_internal
+       - servicedesk_external
+     ports:
+       - "80:80"
+     environment:
+       - API_URL=http://backend:8080
+
+   backend:
+     image: servicedesk-backend
+     restart: always
+     networks:
+       - servicedesk_internal
+     
+networks:
+    servicedesk_internal:
+        external: false
+    servicedesk_external:
+        external: true
+     
