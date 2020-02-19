@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicedesk-db
+spec:
+  selector:
+    matchLabels:
+      app: servicedesk
+      tier: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicedesk
+        tier: db
+    spec:
+      containers:
+      - name: servicedesk-db
+        image: mysql:8.0.19
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: sup3rs3cret
+        - name: MYSQL_DATABASE
+          value: servicedesk
+        - name: MYSQL_USER
+          value: hello
+        - name: MYSQL_PASSWORD
+          value: w0rld
+        ports:
+        - containerPort: 3306

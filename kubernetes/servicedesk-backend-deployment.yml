@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: servicedesk
       tier: backend
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -16,11 +16,28 @@ spec:
     spec:
       containers:
       - name: servicedesk-backend
-        image: servicedesk-backend:latest
-        imagePullPolicy: Never
+        image: perfectglitch/servicedesk-backend:latest
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 100m
             memory: 250Mi
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://servicedesk-db:3306/servicedesk?useSSL=false&allowPublicKeyRetrieval=true
+        - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+          value: com.mysql.cj.jdbc.Driver
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: create
+        - name: SPRING_JPA_DATABASE_PLATFORM
+          value: org.hibernate.dialect.MySQL57Dialect
+        - name: SPRING_JPA_GENERATE_DDL
+          value: "true"
+        - name: SPRING_JPA_SHOW_SQL
+          value: "true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: hello
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: w0rld
         ports:
         - containerPort: 8080

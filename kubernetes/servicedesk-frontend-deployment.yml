@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: servicedesk
       tier: frontend
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: servicedesk-frontend
-        image: servicedesk-frontend:latest
-        imagePullPolicy: Never
+        image: perfectglitch/servicedesk-frontend:latest
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 100m
