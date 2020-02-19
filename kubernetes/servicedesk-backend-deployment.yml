@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicedesk-backend
+spec:
+  selector:
+    matchLabels:
+      app: servicedesk
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicedesk
+        tier: backend
+    spec:
+      containers:
+      - name: servicedesk-backend
+        image: servicedesk-backend:latest
+        imagePullPolicy: Never
+        resources:
+          requests:
+            cpu: 100m
+            memory: 250Mi
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicedesk-frontend
+spec:
+  selector:
+    matchLabels:
+      app: servicedesk
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: servicedesk
+        tier: frontend
+    spec:
+      containers:
+      - name: servicedesk-frontend
+        image: servicedesk-frontend:latest
+        imagePullPolicy: Never
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: API_URL
+          value: http://servicedesk-backend:8080
+        ports:
+        - containerPort: 80
