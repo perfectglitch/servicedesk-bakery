@@ -6,7 +6,7 @@ metadata:
     app: servicedesk
     tier: backend
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 8080
   selector:
